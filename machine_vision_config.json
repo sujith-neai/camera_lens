@@ -75,8 +75,8 @@
     },
     {
       "component": "Camera Body",
-      "template": "GigE Global Shutter Monochrome (12\u201325 MP)",
-      "explanation": "Required resolution is {mp} MP. We recommend \u226512 MP global-shutter monochrome cameras for high speed, low noise, and excellent contrast on PCBs/components. GigE interface is standard in India for easy integration with PLCs."
+      "template": "GigE Global Shutter Monochrome (\u2265{mp} MP)",
+      "explanation": "Required resolution is {mp} MP \u2014 buy a {rec_mp} MP camera (next standard tier above your requirement). GigE global-shutter monochrome recommended for high speed, low noise, and excellent contrast. GigE interface is standard in India for easy integration with PLCs."
     },
     {
       "component": "Lighting",
