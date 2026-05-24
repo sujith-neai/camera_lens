@@ -1,0 +1,92 @@
+{
+  "use_cases": {
+    "Custom": {
+      "width_mm": 365,
+      "height_mm": 280,
+      "wd_mm": 500,
+      "smallest_feature_mm": 1.25,
+      "depth_variation_mm": 1.5,
+      "task_preset": "Presence/Absence"
+    },
+    "a. Single PCB": {
+      "width_mm": 365,
+      "height_mm": 280,
+      "wd_mm": 500,
+      "smallest_feature_mm": 1.25,
+      "depth_variation_mm": 1.5,
+      "task_preset": "Presence/Absence + Solder Anomaly"
+    },
+    "b. PCB Sheet (7x6)": {
+      "width_mm": 2240,
+      "height_mm": 2010,
+      "wd_mm": 500,
+      "smallest_feature_mm": 1.25,
+      "depth_variation_mm": 1.5,
+      "task_preset": "Presence/Absence + Solder Anomaly"
+    },
+    "c. Toyota Highcross Roof": {
+      "width_mm": 2370,
+      "height_mm": 1200,
+      "wd_mm": 2000,
+      "smallest_feature_mm": 15,
+      "depth_variation_mm": 5,
+      "task_preset": "Presence/Absence"
+    },
+    "new_1": {
+      "width_mm": 365.0,
+      "height_mm": 280.0,
+      "wd_mm": 500.0,
+      "smallest_feature_mm": 1.25,
+      "depth_variation_mm": 1.5,
+      "task_preset": "Presence/Absence"
+    }
+  },
+  "task_types": {
+    "Presence/Absence": 8,
+    "Presence/Absence + Solder Anomaly": 15,
+    "Component OCR": 25,
+    "Position/Orientation/Defect Sizing": 20,
+    "Custom": 10
+  },
+  "sensor_formats": {
+    "1/2.3\" (6.17 mm)": 6.17,
+    "2/3\" (8.8 mm)": 8.8,
+    "1\" (12.8 mm)": 12.8,
+    "APS-C (23.5 mm)": 23.5,
+    "Full-frame (36 mm)": 36.0
+  },
+  "defaults": {
+    "wd_mm": 500,
+    "depth_variation_mm": 1.5,
+    "px_slider_min": 4,
+    "px_slider_max": 40,
+    "mono_vs_color_default": "Monochrome (recommended)"
+  },
+  "recommendations": {
+    "hfov_threshold": 120,
+    "wide_lens_note": "Fisheye or multi-camera array (very wide FOV)",
+    "standard_lens_note": "C-mount machine-vision lens (rectilinear, low distortion <0.5%)"
+  },
+  "hardware_recommendations": [
+    {
+      "component": "Lens",
+      "template": "C-mount low-distortion lens (~{focal} mm, <0.5% distortion)",
+      "explanation": "Chosen because the required Horizontal FOV is {hfov}\u00b0. For FOV < 120\u00b0 we use rectilinear low-distortion lenses (<0.5% distortion) for accurate measurements/OCR. If FOV > 120\u00b0, a fisheye would be needed instead."
+    },
+    {
+      "component": "Camera Body",
+      "template": "GigE Global Shutter Monochrome (12\u201325 MP)",
+      "explanation": "Required resolution is {mp} MP. We recommend \u226512 MP global-shutter monochrome cameras for high speed, low noise, and excellent contrast on PCBs/components. GigE interface is standard in India for easy integration with PLCs."
+    },
+    {
+      "component": "Lighting",
+      "template": "Diffuse Dome / Coaxial LED (strobed & synchronized)",
+      "explanation": "For {task} inspection we need uniform, high-contrast illumination. Diffuse dome eliminates glare on shiny solder/components; coaxial is best for flat PCBs. Strobing synchronises with camera trigger to freeze motion and increase brightness without heat."
+    },
+    {
+      "component": "Software / Library",
+      "template": "OpenCV + EasyOCR (for OCR) / Halcon / Cognex VisionPro / Keyence Vision",
+      "explanation": "For {task} we use a combination of classical vision (OpenCV/Halcon) for speed and AI-based tools (EasyOCR / VisionPro) for robust character recognition and anomaly detection on SMD components."
+    }
+  ]
+}
