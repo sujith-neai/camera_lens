@@ -154,6 +154,9 @@ coc = 0.01
 dof_calc = round((2 * f_number * coc * (wd ** 2)) / (suggested_focal ** 2), 1) if suggested_focal > 0 else 0
 dof = manual_dof if manual_dof > 0 else dof_calc
 
+standard_camera_mp = [2, 5, 8, 12, 20, 25, 45]
+rec_camera_mp = next((t for t in standard_camera_mp if t >= min_mp), standard_camera_mp[-1])
+
 # Find nearest standard available focal lengths for C-mount lenses
 standard_focal_lengths = [8, 12, 16, 25, 35, 50, 75, 100]
 sorted_by_distance = sorted(standard_focal_lengths, key=lambda x: abs(x - suggested_focal))
@@ -190,6 +193,7 @@ for item in config["hardware_recommendations"]:
     expl = item["explanation"] \
         .replace("{hfov}", f"{hfov:.1f}°") \
         .replace("{mp}", f"{min_mp}") \
+        .replace("{rec_mp}", str(rec_camera_mp)) \
         .replace("{task}", task_type)
     rec_data.append([item["component"], template, expl])
     # Limit to 3 recommendations only
