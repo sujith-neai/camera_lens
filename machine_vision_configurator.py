@@ -58,7 +58,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("🧪 Machine Vision System Configurator")
-
+st.markdown("**All text now wraps automatically • Everything visible in one view**")
 
 # ====================== LOAD CONFIG ======================
 CONFIG_PATH = Path("machine_vision_config.json")
@@ -123,14 +123,9 @@ st.subheader("📊 Live Calculations & Results")
 px_per_mm_calc = px_across_feature / smallest_feature_mm
 hfov_calc = 2 * math.degrees(math.atan(obj_width / (2 * wd))) if wd > 0 else 0
 vfov_calc = 2 * math.degrees(math.atan(obj_height / (2 * wd))) if wd > 0 else 0
-coc = 0.01
-typical_f = list(config["sensor_formats"].values())[2]
-dof_calc = round((2 * f_number * coc * (wd ** 2)) / (typical_f ** 2), 1) if typical_f > 0 else 0
-
 required_px_mm = manual_px_per_mm if manual_px_per_mm > 0 else px_per_mm_calc
 hfov = hfov_manual if hfov_manual > 0 else hfov_calc
 vfov = vfov_manual if vfov_manual > 0 else vfov_calc
-dof = manual_dof if manual_dof > 0 else dof_calc
 
 horiz_px = int(np.ceil(obj_width * required_px_mm))
 vert_px = int(np.ceil(obj_height * required_px_mm))
@@ -154,6 +149,10 @@ if abs(focal_lengths[best_sensor] - sum(practical_range)/2) == float('inf'):
 
 selected_sensor = best_sensor
 suggested_focal = focal_lengths[selected_sensor]
+
+coc = 0.01
+dof_calc = round((2 * f_number * coc * (wd ** 2)) / (suggested_focal ** 2), 1) if suggested_focal > 0 else 0
+dof = manual_dof if manual_dof > 0 else dof_calc
 
 # Find nearest standard available focal lengths for C-mount lenses
 standard_focal_lengths = [8, 12, 16, 25, 35, 50, 75, 100]
@@ -187,7 +186,7 @@ for item in config["hardware_recommendations"]:
     # Skip Software/Library component
     if item["component"].lower() == "software / library":
         continue
-    template = item["template"].replace("{focal}", str(suggested_focal))
+    template = item["template"].replace("{focal}", str(suggested_focal)).replace("{mp}", str(min_mp))
     expl = item["explanation"] \
         .replace("{hfov}", f"{hfov:.1f}°") \
         .replace("{mp}", f"{min_mp}") \
