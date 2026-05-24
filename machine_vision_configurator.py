@@ -58,7 +58,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("🧪 Machine Vision System Configurator")
-st.markdown("**All text now wraps automatically • Everything visible in one view**")
+
 
 # ====================== LOAD CONFIG ======================
 CONFIG_PATH = Path("machine_vision_config.json")
