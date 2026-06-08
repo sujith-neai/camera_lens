@@ -103,7 +103,7 @@ with col2:
     
     px_across_feature = st.slider("Required pixels across smallest feature", 
                                   config["defaults"]["px_slider_min"], config["defaults"]["px_slider_max"], adjusted_default_px, step=1)
-    smallest_feature_mm = st.number_input("Smallest feature size (mm)", value=float(uc["smallest_feature_mm"]), min_value=0.1, step=0.05)
+    smallest_feature_mm = st.number_input("Smallest feature size (mm)", value=float(uc["smallest_feature_mm"]), min_value=0.001, step=0.05)
     mono_vs_color = st.radio("Sensor type", ["Monochrome (recommended)", "Color"], horizontal=True)
 
 # ====================== MANUAL OVERRIDES ======================
